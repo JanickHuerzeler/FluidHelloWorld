@@ -3,6 +3,7 @@
  * Licensed under the MIT License.
  */
 
+import { ICoinFlipper } from "./coinDataObject";
 import { IDiceRoller } from "./dataObject";
 
 /**
@@ -36,4 +37,36 @@ export function renderDiceRoller(diceRoller: IDiceRoller, div: HTMLDivElement) {
 
     // Use the diceRolled event to trigger the rerender whenever the value changes.
     diceRoller.on("diceRolled", updateDiceChar);
+}
+
+export function renderCoinFlipper(coinFlipper: ICoinFlipper, div: HTMLDivElement) {
+    const wrapperDiv = document.createElement("div");
+    wrapperDiv.style.textAlign = "center";
+    div.append(wrapperDiv);
+
+    const coinCharDiv = document.createElement("div");
+    coinCharDiv.style.fontSize = "200px";
+
+    const flipButton = document.createElement("button");
+    flipButton.style.fontSize = "50px";
+    flipButton.textContent = "Flip";
+
+    flipButton.addEventListener("click", coinFlipper.flip);
+
+    wrapperDiv.append(coinCharDiv, flipButton);
+
+    const updateCoinIcon = () => {
+        if (coinFlipper.value === 0) {
+            coinCharDiv.innerHTML = '<i class="fas fa-thumbs-down"></i>';
+            coinCharDiv.style.color = 'red';
+        }
+        else {
+            coinCharDiv.innerHTML = '<i class="fas fa-thumbs-up"></i>';
+            coinCharDiv.style.color = 'green';
+        }
+    };
+    updateCoinIcon();
+
+    coinFlipper.on("coinFlipped", updateCoinIcon);
+
 }

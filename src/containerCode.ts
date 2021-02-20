@@ -4,6 +4,7 @@
  */
 
 import { ContainerRuntimeFactoryWithDefaultDataStore } from "@fluidframework/aqueduct";
+import { CoinFlipperInstantiationFactory } from "./coinDataObject";
 
 import { DiceRollerInstantiationFactory } from "./dataObject";
 
@@ -21,5 +22,12 @@ export const DiceRollerContainerRuntimeFactory = new ContainerRuntimeFactoryWith
     DiceRollerInstantiationFactory,
     new Map([
         DiceRollerInstantiationFactory.registryEntry,
+    ]),
+);
+
+export const CoinFlipperContainerRuntimeFacotry = new ContainerRuntimeFactoryWithDefaultDataStore(
+    CoinFlipperInstantiationFactory,
+    new Map([
+        CoinFlipperInstantiationFactory.registryEntry
     ]),
 );
